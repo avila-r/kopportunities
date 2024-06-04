@@ -1,0 +1,7 @@
+###
+
+GET {{url}}/docs
+
+###
+
+GET {{url}}/docs.html
