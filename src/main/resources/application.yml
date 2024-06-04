@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: kopportunities
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kopportunities-db
+    username: aa8771fd-f5c0-4317-862a-6b554173cec7
+    password: e7128a2c-e4e9-4a33-b72a-dcf1ead6d105
+
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+      path: /docs.html
+
+server:
+  address: localhost
+  port: 8080
