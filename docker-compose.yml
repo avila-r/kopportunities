@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./src/main/resources/datasource
+    container_name: kopportunities-db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: kopportunities-db
+      POSTGRES_USER: aa8771fd-f5c0-4317-862a-6b554173cec7
+      POSTGRES_PASSWORD: e7128a2c-e4e9-4a33-b72a-dcf1ead6d105
