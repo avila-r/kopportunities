@@ -6,8 +6,10 @@ import com.avila.kopportunities.service.JobService
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.http.ResponseEntity as http
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -25,6 +27,45 @@ import java.util.UUID
         val status: String,
         val message: String
     )
+
+    @PostMapping
+    fun postJob(@RequestBody request: JobRequestDTO):http<JobResponseDTO> =
+        try {
+            http
+                .status(HttpStatus.CREATED)
+                .body(service.insert(request.build()).build())
+        } catch (e: Exception) {
+            println(e)
+            ResponseEntity.badRequest().build()
+        }
+
+    @PatchMapping
+    fun updateJob(@RequestBody request: JobRequestDTO):http<JobResponseDTO> =
+        try {
+            http
+                .status(HttpStatus.OK)
+                .body(service.update(request.build()).build())
+        } catch (e: Exception) {
+            println(e)
+            ResponseEntity.badRequest().build()
+        }
+
+    @DeleteMapping("/id/{id}")
+    fun deleteJob(@PathVariable id: String):http<Response> =
+        try {
+            http
+                .status(HttpStatus.OK)
+                .body(
+                    if (service.deleteById(UUID.fromString(id))) {
+                        Response(200, "OK", "Job deleted successfully")
+                    } else {
+                        Response(400, "Bad Request", "Job not found")
+                    }
+                )
+        } catch (e: Exception) {
+            println(e)
+            ResponseEntity.badRequest().build()
+        }
 
     @GetMapping("/id/{id}")
     fun getJob(@PathVariable id: String):http<JobResponseDTO> =
@@ -120,34 +161,6 @@ import java.util.UUID
             http
                 .status(HttpStatus.OK)
                 .body(service.getByResponsibilities(responsibilities).map { it.build() })
-        } catch (e: Exception) {
-            println(e)
-            ResponseEntity.badRequest().build()
-        }
-
-    @PostMapping("/delete/{id}")
-    fun deleteJob(@PathVariable id: String):http<Response> =
-        try {
-            http
-                .status(HttpStatus.OK)
-                .body(
-                    if (service.deleteById(UUID.fromString(id))) {
-                        Response(200, "OK", "Job deleted successfully")
-                    } else {
-                        Response(400, "Bad Request", "Job not found")
-                    }
-                )
-        } catch (e: Exception) {
-            println(e)
-            ResponseEntity.badRequest().build()
-        }
-
-    @PostMapping
-    fun postJob(@RequestBody request: JobRequestDTO):http<JobResponseDTO> =
-        try {
-            http
-                .status(HttpStatus.CREATED)
-                .body(service.insert(request.build()).build())
         } catch (e: Exception) {
             println(e)
             ResponseEntity.badRequest().build()
