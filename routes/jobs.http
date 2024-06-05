@@ -1,0 +1,18 @@
+POST {{url}}/api/v1/jobs
+Content-Type: application/json
+
+{
+  "title": "string",
+  "description": "string",
+  "company": "string",
+  "location": "string",
+  "type": "string",
+  "salary": 0.00,
+  "requirements": "string",
+  "responsibilities": "string"
+}
+
+###
+
+@id = your uuid here
+GET {{url}}/api/v1/jobs/id/{{id}}
