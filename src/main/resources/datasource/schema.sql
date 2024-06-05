@@ -16,7 +16,7 @@ create table if not exists jobs (
 -- Job Applications --
 create table if not exists applications (
     id uuid not null unique primary key,
-    job_id uuid references jobs(id),
+    job_id uuid references jobs(id) not null,
     applicant_name varchar(50) not null,
     applicant_email varchar(50) not null,
     resume_url varchar(100) not null,
