@@ -11,16 +11,10 @@ import java.util.UUID
 
 @Service class JobService( private val repository: JobRepository ) {
 
-    @Transactional fun insertJob(job: Job?): Job {
-        return job?.let {
-            repository.save(it)
-        } ?: throw Exception() // Todo: custom exception
-    }
+    @Transactional fun insertJob(job: Job?): Job =
+        repository.save(job ?: throw Exception()) // Todo: custom exception
 
-    fun getJob(id: UUID): Job {
-        repository.findJobById(id)?.let {
-            return it
-        } ?: throw Exception() // Todo: custom exception
-    }
+    fun getJob(id: UUID): Job =
+        repository.findJobById(id) ?: throw Exception() // Todo: custom exception
 
 }
