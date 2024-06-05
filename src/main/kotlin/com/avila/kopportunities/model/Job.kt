@@ -1,7 +1,5 @@
 package com.avila.kopportunities.model
 
-import com.avila.kopportunities.controller.JobController.Response
-
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -71,8 +69,8 @@ import java.util.UUID
         this.lastModified = LocalDate.now()
     }
 
-    fun build():Response =
-        Response(
+    fun build():JobResponseDTO =
+        JobResponseDTO(
             id = this.id,
             lastModified = this.lastModified,
             status = this.status,
@@ -87,3 +85,40 @@ import java.util.UUID
         )
 
 }
+
+data class JobRequestDTO(
+    val title: String,
+    val description: String,
+    val company: String,
+    val location: String,
+    val type: String,
+    val salary: BigDecimal,
+    val requirements: String,
+    val responsibilities: String
+) {
+    fun build():Job =
+        Job(
+            title = this.title,
+            description = this.description,
+            company = this.company,
+            location = this.location,
+            type = this.type,
+            salary = this.salary,
+            requirements = this.requirements,
+            responsibilities = this.responsibilities
+        )
+}
+
+data class JobResponseDTO(
+    val id: UUID?,
+    val lastModified: LocalDate?,
+    val status: String?,
+    val title: String,
+    val description: String,
+    val company: String,
+    val location: String,
+    val type: String,
+    val salary: BigDecimal,
+    val requirements: String,
+    val responsibilities: String
+)
