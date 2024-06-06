@@ -1,18 +1,84 @@
+# Path variables
+
+@id = id here
+@title = title here
+@description = description here
+@company = company here
+@location = location here
+@type = type here
+@salary = salary here
+@requirements = requirements here
+@responsibilities = responsabilities here
+
+###
+
 POST {{url}}/api/v1/jobs
 Content-Type: application/json
 
 {
-  "title": "string",
-  "description": "string",
-  "company": "string",
-  "location": "string",
-  "type": "string",
-  "salary": 0.00,
-  "requirements": "string",
-  "responsibilities": "string"
+  "title": "Software Engineer",
+  "description": "Developing software applications",
+  "company": "XYZ Corp",
+  "location": "New York",
+  "type": "Full-time",
+  "salary": 100000,
+  "requirements": "Java, Spring Boot, SQL",
+  "responsibilities": "Develop and maintain software applications"
 }
 
 ###
 
-@id = your uuid here
+PATCH {{url}}/api/v1/jobs
+Content-Type: application/json
+
+{
+  "id": "a33e7dc1-ecff-4d18-b5f0-90cf074b2b3c",
+  "title": "Senior Software Engineer",
+  "description": "Leading software development projects",
+  "company": "XYZ Corp",
+  "location": "San Francisco",
+  "type": "Full-time",
+  "salary": 120000,
+  "requirements": "Java, Spring Boot, SQL",
+  "responsibilities": "Lead and manage software development projects"
+}
+
+###
+
+DELETE {{url}}/api/v1/jobs/id/{{id}}
+
+###
+
+GET {{url}}/api/v1/jobs
+
+###
+
 GET {{url}}/api/v1/jobs/id/{{id}}
+
+###
+
+GET {{url}}/api/v1/jobs/title/{{title}}
+
+###
+
+GET {{url}}/api/v1/jobs/company/{{company}}
+
+###
+
+GET {{url}}/api/v1/jobs/location/{{location}}
+
+###
+
+GET {{url}}/api/v1/jobs/type/{{type}}
+
+###
+
+GET {{url}}/api/v1/jobs/salary/{{salary}}
+
+###
+
+GET {{url}}/api/v1/jobs/requirements/{{requirements}}
+
+###
+
+GET {{url}}/api/v1/jobs/responsibilities/{{responsibilities}}
