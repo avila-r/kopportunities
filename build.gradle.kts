@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.avila"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -20,12 +20,34 @@ repositories {
 }
 
 dependencies {
+    /*
+     * Spring DATA JPA (Hibernate)
+     */
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    /*
+     * Spring Web
+     */
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    /*
+     * Reflection
+     */
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    /*
+     * Docs
+     */
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+
+    /*
+     * PostgreSQL
+     */
     runtimeOnly("org.postgresql:postgresql")
+
+    /*
+     * Test Environment (JUnit Jupiter)
+     */
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     // testRuntimeOnly("com.h2database:h2")
