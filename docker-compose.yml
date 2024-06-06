@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+
+  # Application
+  kopportunities:
+    build: .
+    container_name: kopportunities-app
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    network_mode: "host"
+
+  # PostgreSQL
   db:
     build: ./src/main/resources/datasource
     container_name: kopportunities-db
@@ -10,3 +22,4 @@ services:
       POSTGRES_DB: kopportunities-db
       POSTGRES_USER: aa8771fd-f5c0-4317-862a-6b554173cec7
       POSTGRES_PASSWORD: e7128a2c-e4e9-4a33-b72a-dcf1ead6d105
+    network_mode: "host"
