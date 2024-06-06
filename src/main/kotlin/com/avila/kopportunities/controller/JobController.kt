@@ -1,5 +1,6 @@
 package com.avila.kopportunities.controller
 
+import com.avila.kopportunities.model.Job
 import com.avila.kopportunities.model.JobRequestDTO
 import com.avila.kopportunities.model.JobResponseDTO
 import com.avila.kopportunities.service.JobService
@@ -40,11 +41,11 @@ import java.util.UUID
         }
 
     @PatchMapping
-    fun updateJob(@RequestBody request: JobRequestDTO):http<JobResponseDTO> =
+    fun updateJob(@RequestBody request: Job):http<JobResponseDTO> =
         try {
             http
                 .status(HttpStatus.OK)
-                .body(service.update(request.build()).build())
+                .body(service.update(request).build())
         } catch (e: Exception) {
             println(e)
             ResponseEntity.badRequest().build()
@@ -80,14 +81,9 @@ import java.util.UUID
 
     @GetMapping
     fun getAllJobs():http<List<JobResponseDTO>> =
-        try {
-            http
-                .status(HttpStatus.OK)
-                .body(service.listAll().map { it.build() })
-        } catch (e: Exception) {
-            println(e)
-            ResponseEntity.badRequest().build()
-        }
+        http
+            .status(HttpStatus.OK)
+            .body(service.listAll().map { it.build() })
 
     @GetMapping("/title/{title}")
     fun getJobByTitle(@PathVariable title: String):http<List<JobResponseDTO>> =
