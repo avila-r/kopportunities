@@ -1,5 +1,10 @@
 package com.avila.kopportunities.controller
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
+
+import com.avila.kopportunities.exception.HttpErrorResponse
 import com.avila.kopportunities.model.Job
 import com.avila.kopportunities.model.JobRequestDTO
 import com.avila.kopportunities.model.JobResponseDTO
@@ -41,42 +46,54 @@ import java.util.UUID
         }
 
     @PatchMapping
-    fun updateJob(@RequestBody request: Job):http<JobResponseDTO> =
+    fun updateJob(@RequestBody request: Job):http<Either<JobResponseDTO, HttpErrorResponse>> =
         try {
             http
                 .status(HttpStatus.OK)
-                .body(service.update(request).build())
-        } catch (e: Exception) {
-            println(e)
-            ResponseEntity.badRequest().build()
+                .body(service.update(request).build().left())
+        } catch (e: IllegalArgumentException) {
+           http
+               .status(HttpStatus.BAD_REQUEST)
+               .body(HttpErrorResponse(
+                   status = HttpStatus.BAD_REQUEST.toString(),
+                   message = e.message ?: "Invalid UUID format"
+               ).right())
         }
 
     @DeleteMapping("/id/{id}")
-    fun deleteJob(@PathVariable id: String):http<Response> =
+    fun deleteJob(@PathVariable id: String):http<Either<Response, HttpErrorResponse>> =
         try {
             http
                 .status(HttpStatus.OK)
                 .body(
                     if (service.deleteById(UUID.fromString(id))) {
-                        Response(200, "OK", "Job deleted successfully")
+                        Response(200, "OK", "Job deleted successfully").left()
                     } else {
-                        Response(400, "Bad Request", "Job not found")
+                        Response(400, "Bad Request", "Job not found").left()
                     }
                 )
-        } catch (e: Exception) {
-            println(e)
-            ResponseEntity.badRequest().build()
+        } catch (e: IllegalArgumentException) {
+            http
+                .status(HttpStatus.BAD_REQUEST)
+                .body(HttpErrorResponse(
+                    status = HttpStatus.BAD_REQUEST.toString(),
+                    message = e.message ?: "Invalid UUID format"
+                ).right())
         }
 
     @GetMapping("/id/{id}")
-    fun getJob(@PathVariable id: String):http<JobResponseDTO> =
+    fun getJob(@PathVariable id: String):http<Either<JobResponseDTO, HttpErrorResponse>> =
         try {
             http
                 .status(HttpStatus.OK)
-                .body(service.getById(UUID.fromString(id)).build())
-        } catch (e: Exception) {
-            println(e)
-            ResponseEntity.badRequest().build()
+                .body(service.getById(UUID.fromString(id)).build().left())
+        } catch (e: IllegalArgumentException) {
+            http
+                .status(HttpStatus.BAD_REQUEST)
+                .body(HttpErrorResponse(
+                    status = HttpStatus.BAD_REQUEST.toString(),
+                    message = e.message ?: "Invalid UUID format"
+                ).right())
         }
 
     @GetMapping
