@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
+    application
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     id("org.springframework.boot") version "3.3.0"
     id("io.spring.dependency-management") version "1.1.5"
     kotlin("plugin.jpa") version "1.9.24"
@@ -9,10 +11,11 @@ plugins {
 }
 
 group = "com.avila"
-version = "0.0.1"
+version = "1.0.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -45,7 +48,7 @@ dependencies {
      */
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    // testRuntimeOnly("com.h2database:h2")
+    testRuntimeOnly("com.h2database:h2")
 
     /*
      * Misc
@@ -64,4 +67,14 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("com.avila.kopportunities.KopportunitiesApplicationKt")
+}
+
+tasks.shadowJar {
+    manifest {
+        attributes["Main-Class"] = "com.avila.kopportunities.KopportunitiesApplicationKt"
+    }
 }
