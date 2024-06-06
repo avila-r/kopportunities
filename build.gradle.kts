@@ -31,11 +31,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     /*
-     * Reflection
-     */
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-    /*
      * Docs
      */
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
@@ -51,6 +46,13 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     // testRuntimeOnly("com.h2database:h2")
+
+    /*
+     * Misc
+     */
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("io.arrow-kt:arrow-core:1.0.1")
+
 }
 
 kotlin {
