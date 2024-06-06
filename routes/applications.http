@@ -1,0 +1,87 @@
+# Path variables
+
+@id = application here
+@jobId = job id here
+@applicantName = applicant name here
+@applicantEmail = applicant email here
+@resumeUrl = resume url here
+@coverLetter = cover letter here
+@appliedDate = applied date here
+@status = status here
+
+###
+
+POST {{url}}/api/v1/applications/job/{{jobId}}
+Content-Type: application/json
+
+{
+  "applicantName": "John Doe",
+  "applicantEmail": "john.doe@example.com",
+  "resumeUrl": "https://example.com/resume",
+  "coverLetter": "Cover letter content"
+}
+###
+
+PATCH {{url}}/api/v1/applications
+Content-Type: application/json
+
+{
+  "job": {
+    "title": "string",
+    "description": "string",
+    "company": "string",
+    "location": "string",
+    "type": "string",
+    "salary": 0,
+    "requirements": "string",
+    "responsibilities": "string",
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "lastModified": "2024-06-06",
+    "status": "string"
+  },
+  "applicantName": "string",
+  "applicantEmail": "string",
+  "resumeUrl": "string",
+  "coverLetter": "string",
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+###
+
+DELETE {{url}}/api/v1/applications/id/{{id}}
+
+###
+
+GET {{url}}/api/v1/applications
+
+###
+
+GET {{url}}/api/v1/applications/id/{{id}}
+
+###
+
+GET {{url}}/api/v1/applications/job/{{jobId}}
+
+###
+
+GET {{url}}/api/v1/applications/applicant/{{applicantName}}
+
+###
+
+GET {{url}}/api/v1/applications/email/{{applicantEmail}}
+
+###
+
+GET {{url}}/api/v1/applications/resume/{{resumeUrl}}
+
+###
+
+GET {{url}}/api/v1/applications/cover/{{coverLetter}}
+
+###
+
+GET {{url}}/api/v1/applications/date/{{appliedDate}}
+
+###
+
+GET {{url}}/api/v1/applications/status/{{status}}
